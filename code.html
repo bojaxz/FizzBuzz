@@ -26,7 +26,9 @@
     <!-- Mavbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/index.html"><img src="/img/Logo Dark.png" alt="Liam Morrison Logo" class="d-inline-block align-text-top" width="30" height="30"> APP NAME</a>
+            <a class="navbar-brand" href="/index.html">
+                <img src="/img/FizzBuzzHeader.svg" alt="Fuzz Buzz Header Logo" class="d-inline-block align-text-top" width="150">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,16 +36,16 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
+                        <a class="nav-link" href="/index.html">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/app.html">App</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/code.html">Code</a>
+                        <a class="nav-link active" aria-current="page" href="/code.html">Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="https://github.com/bojaxz">Git Repo</a>
+                        <a class="nav-link" target="_blank" href="https://github.com/bojaxz/FizzBuzz">Git Repo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" target="_blank" href="https://liam-morrison-portfolio.netlify.app/">About the Dev</a>
@@ -60,17 +62,132 @@
             <div class="row row-cols-1 row-cols-lg-2">
                 <div class="col col-lg-8">
                     <pre class="line-numbers"><code class="language-javascript">
-                            // Call HelloWorld
-                            function HelloWorld() {
-                                alert("Hello World!");
+                        // control function
+                        // getValues from user input, fizz and buzz
+                        function getValues() {
+                            // store user's fizz/buzz numbers in variables
+                            let fizz = parseInt(document.getElementById("fizz").value);
+                            let buzz = parseInt(document.getElementById("buzz").value);
+                        
+                            // generate results using fizzBuzz function
+                            let resultsArray = fizzBuzz(fizz, buzz);
+                        
+                            // dipslay results of fizzBuzz function (resultsArray)
+                            // using displayResults function
+                            displayResults(resultsArray);
+                        
+                        }
+                        
+                        // logic function
+                        // calculate which numbers to replace with fizz/buzz
+                        function fizzBuzz(fizz, buzz) {
+                            // initialize an array to hold our results
+                            let resultsArray = [];
+                        
+                            // use a for loop to replace words divisable by 3, 5, 
+                            // or both with fizz, buzz, or fizzbuzz respectively
+                            // use the continue statement to exit the current iteration 
+                            // of the for loop and continue to the next
+                            for (let i = 1; i <= 100; i++) {
+                                // check divisable by fizz (default of 3)
+                                if (i % fizz == 0) {
+                                    // check divisable by buzz (default of 5)
+                                    // by looping in this order we can check both 3 and 5 at the same time
+                                    // leaving only 5 and neither in the last condition
+                                    if (i % buzz == 0) {
+                                        resultsArray.push("FizzBuzz");
+                                        continue;
+                                    } else {
+                                        resultsArray.push("Fizz");
+                                        continue;
+                                    }
+                                }
+                                // check divisable by 5. if not push number
+                                if (i % buzz == 0) {
+                                    resultsArray.push("Buzz");
+                                    continue;
+                                } else {
+                                    resultsArray.push(i);
+                                }
                             }
+                            // return the results to be used in getValues and displayResults functions
+                            return resultsArray;
+                        }
+                        
+                        // display function
+                        // display the results from fizzbuzz using the resultsArray from fizzBuzz function
+                        function displayResults(resultsArray) {
+                            // create string to hold tablerowData
+                            let tableRows = "";
+                            // loop over resultsArray and create tablerow for each item
+                            for (let i = 0; i < resultsArray.length; i++) {
+                                tableRows = tableRows + `&lt;tr>&lt;td>${resultsArray[i]}&lt;/td>&lt;/tr>`;
+                            }
+                            // add the rows to the table.
+                            document.getElementById("results").innerHTML = tableRows;
+                        }
+                        
                     </code>
                     </pre>
                 </div>
                 <div class="col col-lg-4">
-                    <p>The Code is structured in one function.</p>
-                    <h5>Hello World</h5>
-                    <p>Hello World is a function that displays an alert with a message of "Hello World!"</p>
+                    <h5>getValues()</h5>
+                    <p>
+                        Straight forward function to grab the user's input values from our form.
+                        We use the document to grab the values in the form inputs using ids.
+                        The values are then parsed into integer values from string values.
+                        Despite the form type being "number" in our HTML file, JS reads this as a string.
+                        Once our values are parsed, we need a place to store all of the numbers we will be looping through.
+                        We create a variable named resultsArray and initiate it as an empty array.
+                        We will come back to this after we decide which numbers to replace with FizzBuzz.
+                        This is where are fizzBuzz function comes into play. Jump over to the fizzBuzz function to read more
+                        about the next step. Once our fizzBuzz function has finished running, we receive the resultsArray
+                        as a return value. We use this return value as the value of our resultsArray variable in our getValues function.
+                        (Note that this can be confusing since they share the same name, but due to variable scoping, they are different
+                        variables with different values.) Now that our resultsArray is populated with our new list of FizzBuzz numbers, we
+                        can use it as an input for our displayResults function. In short, this function takes our resultsArray as an input
+                        and displays it to our user inside of a table. Jump over to the displayResults function to learn more!
+                        
+
+                    </p>
+                    <h5>fizzBuzz()</h5>
+                    <p>
+                        We create a function that takes our user's fizz buzz numbers as inputs.
+                        We will use those inputs to do some math and to create the conditionals for our loop.
+                        Before we jump into our for loop, we need to create a variable to hold our results.
+                        We initialize the resultsArray and set it equal to an empty array.
+                        Now for the fun part. We setup a for loop that iterates from 0-99 or 1-100.
+                        We add conditions to decice when to replace a number with either "Fizz", "Buzz", or both.
+                        We can do this rather simply by using the modulo operator to check the remainder when dividing
+                        by our FizzBuzz numbers. If the remainder is 0, we know that it is a multiple of our number.
+                        Since we need to check both Fizz and Buzz, we can add another condition to check the remainder
+                        of our Buzz number as well. If the number passes both conditions, we know the number is a multiple
+                        of both numbers! How cool! We can then replace that number with "FizzBuzz"!
+                        If the number passes the Fizz check, but fails the Buzz check, then we know that it is a multiple of
+                        Fizz and not Buzz, which means we can replace this number with "Fizz"
+                        Since for loops and coding in general run top to bottom, we need a third conditional to check if a number
+                        is a multiple of Buzz even if it is not a multiple of Fizz. Using the same logic as before, we use the
+                        modulo operator to check if our number has a remainder when divided by our Buzz number.
+                        If the remainder is 0, it will pass our condition, which means we can replace the number with "Buzz".
+                        Now, that leaves us with just the regular numbers. This is the easy part. We can use an Else statement
+                        to have any remaining numbers added to our resultsArray so that only our FizzBuzz numbers are replaced
+                        and the other numbers display normally. Last, but certainly not least, we use a return statement to
+                        return our resultsArray to our getValues function. We will need the resultsArray in our displayResults function.
+                    </p>
+                    <h5>displayResults()</h5>
+                    <p>
+                        This is where it all comes together. We use our list of magically replaced FizzBuzz numbers
+                        that were generated using the user's selected numbers and display them on the screen!
+                        We can do this by taking our resultsArray as an input to our function.
+                        We then create a new variable named "tableRows" to hold the data for our table that we
+                        will use to display our numbers back to the user. Next, we loop through our resultsArray
+                        using a for loop. For each iteration, we take our number, pepper it up with some HTML, and add it to our
+                        tableRows variable. In order for the table to display correctly, we need to add HTML to each number.
+                        We use template literals to simplfiy our syntax by having a table row(tr) and table data(td) tag added to each number.
+                        Now that our numbers have the proper HTML needed and have been added to our tableRows variable, we can
+                        use the document to access our results table and update the innerHTML to our tableRows. Voil&#224;, our fizzBuzz
+                        numbers magically appear on the screen and the user is impressed with our awesome app!
+                    </p>
                 </div>
             </div>
         </div>

@@ -26,7 +26,9 @@
     <!-- Mavbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/index.html"><img src="/img/Logo Dark.png" alt="Liam Morrison Logo" class="d-inline-block align-text-top" width="30" height="30"> APP NAME</a>
+            <a class="navbar-brand" href="/index.html">
+                <img src="/img/FizzBuzzHeader.svg" alt="Fuzz Buzz Header Logo" class="d-inline-block align-text-top" width="150">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,16 +36,16 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
+                        <a class="nav-link" href="/index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/app.html">App</a>
+                        <a class="nav-link active" aria-current="page" href="/app.html">App</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/code.html">Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="https://github.com/bojaxz">Git Repo</a>
+                        <a class="nav-link" target="_blank" href="https://github.com/bojaxz/FizzBuzz">Git Repo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" target="_blank" href="https://liam-morrison-portfolio.netlify.app/">About the Dev</a>
@@ -55,7 +57,59 @@
 
     <!-- Main Section -->
     <main class="flex-shrink-0">
-        <div class="container">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 col-lg-4 border-end">
+                    <div class="row border-bottom">
+                        <h1>Fizz Buzz App</h1>
+                        <p>
+                            The classic inteview question. A program that iterates from 1 to 100 replacing multiples of two given numbers
+                            with the words "Fizz" or "Buzz" and replacing multiples of both numbers with "FizzBuzz".
+                            This version takes it one step further by letting you choose your own Fizz and Buzz numbers which are then
+                            displayed in a table.
+                        </p>
+                    </div>
+                    <div class="row mt-3">
+                        <h1>Instructions</h1>
+                        <p>
+                            Give it a shot by entering your numbers into the form inputs and pressing the FizzBuzz button!
+                            Watch the magic of FizzBuzz as your numbers are replaced with FizzBuzz!
+                        </p>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <form lass="row g-3">
+                        <div class="col d-md-flex">
+                            <div class="col-12 col-md-4 me-4">
+                                <label class="form-label">Enter a Fizz number:</label>
+                                <input type="number" id="fizz" class="form-control" value="3">
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <label class="form-label">Enter a Buzz number:</label>
+                                <input type="number" id="buzz" class="form-control" value="5">
+                            </div>
+                        </div>
+                            <div class="col-3 mt-3 ms-1">
+                                <button type="button" id="btnSubmit" class="btn btn-outline-primary">
+                                    <img src="/img/FizzBuzzHeader.svg" alt="Fuzz Buzz Header Logo" height="35">
+                                </button>
+                            </div>
+                    </form>
+                    <div class="row mt-5">
+                        <div class="col">
+                            <h3>Results</h3>
+                            <div class="table-responvise">
+                                <table class="table table-dark table-striped table-hover">
+                                    <thead class="table-dark"><td colspan="5">Fizz Buzz Results</td></thead>
+                                    <tbody id="results">
+                                        <!-- Results to FizzBuzz -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -80,6 +134,16 @@
         </div>
     </footer> 
 
+    <template id="fbTemplate">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </template>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
@@ -89,6 +153,9 @@
     </script>
     <!-- Custom JS -->
     <script src="/js/site.js"></script>
+    <script>
+        document.getElementById("btnSubmit").addEventListener("click", getValues);
+    </script>
 </body>
 
 </html>
